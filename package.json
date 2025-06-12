@@ -1,5 +1,5 @@
 {
-  "name": "a_rest_api_for_epam_members",
+  "name": "my-team-rest-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

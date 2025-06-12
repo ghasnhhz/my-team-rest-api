@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     const member = allMembers.find(member => member.fullName === fullName)
 
     if (!member) {
-      return res.status(404).json({message: "No member found with the provided fullName!"})
+      return res.status(404).json({message: "No member found with the provided fullName."})
     } else if (member.age !== parseInt(age)) {
       return res.status(404).json({message: "No member found with the provided age."})
     }
@@ -24,7 +24,7 @@ router.get("/:memberId", (req, res) => {
   const member = allMembers.find(member => member.id === parseInt(memberId))
 
   if (!member) {
-    return res.status(404).json({message: "No member found with the provided memberID!"})
+    return res.status(404).json({message: "No member found with the id you provided."})
   }
   res.status(200).json(member)
 })

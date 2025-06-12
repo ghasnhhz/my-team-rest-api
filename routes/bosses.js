@@ -14,24 +14,27 @@ router.get("/", (req, res) => {
     } else if (boss.age !== bossAge) {
       return res.status(404).json({error: "Age not matched!"})
     }
+
     return res.status(200).json(boss)
   }
   
   const bosses = allMembers.filter(member => member.role === "Boss")
 
-  if (!bosses) {
+  if (bosses.length === 0) {
     return res.status(404).json({error: "Bosses are not included yet."})
   }
+
   res.status(200).json(bosses)
 })
 
 router.get("/:bossID", (req, res) => {
   const {bossID} = req.params
-  const boss = allMembers.find(boss => boss.id === parseInt(bossID))
+  const boss = allMembers.find(member => member.id === parseInt(bossID))
 
   if (!boss || boss.role !== "Boss") {
-    return res.status(404).json({error: "No boss with the id you provided!"})
+    return res.status(404).json({error: "No boss found with the id you provided."})
   }
+  
   res.status(200).json(boss)
 })
 
