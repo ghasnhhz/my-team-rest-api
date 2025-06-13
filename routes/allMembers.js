@@ -1,6 +1,10 @@
 const express = require("express")
-const allMembers = require("../data")
+const bosses = require("../data/dataBosses")
+const managers = require("../data/dataManagers")
+const developers = require("../data/dataDevelopers")
 const router = express.Router()
+
+let allMembers = [...bosses, ...managers, ...developers]
 
 router.get("/", (req, res) => {
   const { fullName, age } = req.query
