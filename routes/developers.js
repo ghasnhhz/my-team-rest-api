@@ -1,21 +1,19 @@
 const express = require("express")
 const developers = require("../data/dataDevelopers")
+const uuid = require("uuid")
 const router = express.Router()
 
 router.get("/", (req, res) => {
-  const { fullName, age } = req.query
+  const { name } = req.query
   
-  if (fullName && age) {
-    const developer = developers.find(member => member.fullName === fullName)
-    const developerID = parseInt(age)
+  if (name) {
+    const developer = developers.filter(member => member.fullName.toLowerCase().includes(name.toLowerCase()))
 
-    if (!developer) {
+    if (developer === 0) {
       return res.status(404).json({error: "No developer found with the fullName you provided."})
-    } else if (developer.age !== developerID) {
-      return res.status(404).json({error: "No developer found with the age you provided."})
     }
 
-    res.status(200).json(developer)
+    return res.status(200).json(developer)
   }
   
   if (developers.length !== 0) {
@@ -39,8 +37,8 @@ router.get("/:developerID", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-  req.body.id = developers.length + 1
   const newDeveloper = req.body
+  newDeveloper.id = uuid.v4()
   
   developers.push(newDeveloper)
   res.status(201).json(newDeveloper)

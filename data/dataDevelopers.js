@@ -8,7 +8,7 @@ const infoDevelopers = [
   { id: 5, role: "Developer", position: "Senior Frontend Developer", fullName: "Akmal Ozodov", age: 30 },
 
   // Backend Developers
-  { id: 6, role: "Developer", position: "Junior Backend Developer", fullName: "Temur Ismoilov", age: 21 },
+  { id: 6, role: "Developer", position: "Junior Backend Developer", fullName: "Akmal Ismoilov", age: 21 },
   { id: 7, role: "Developer", position: "Junior Backend Developer", fullName: "Muhammad Abdullaev", age: 24 },
   { id: 8, role: "Developer", position: "Mid-level Backend Developer", fullName: "Asalbek Nurullayev", age: 27 },
   { id: 9, role: "Developer", position: "Senior Backend Developer", fullName: "Zarnigor Turgunova", age: 29 },

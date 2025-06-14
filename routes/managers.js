@@ -1,19 +1,17 @@
 const express = require("express")
 const managers = require("../data/dataManagers")
+const uuid = require("uuid")
 const router = express.Router()
 
 router.get("/", (req, res) => {
-  const { fullName, age } = req.query
+  const { name} = req.query
   // return res.send(`Manager age is: ${typeof age}`)
   
-  if (fullName && age) {
-    const manager = managers.find(manager => manager.fullName === fullName)
-    const managerAge = parseInt(age)
+  if (name) {
+    const manager = managers.filter(manager => manager.fullName.toLowerCase().includes(name.toLowerCase()))
 
-    if (!manager) {
-      return res.status(404).json({error: "No manager with the fullName you provided!"})
-    } else if (manager.age !== managerAge) {
-      return res.status(404).json({error: "Age not matched"})
+    if (manager === 0) {
+      return res.status(404).json({error: "No manager or managers found with the name you provided!"})
     }
 
     return res.status(200).json(manager)
@@ -39,8 +37,8 @@ router.get("/:managerID", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-  req.body.id = managers.length + 1
   const newManager = req.body
+  newManager.id = uuid.v4()
 
   managers.push(newManager)
   res.status(201).json(newManager)

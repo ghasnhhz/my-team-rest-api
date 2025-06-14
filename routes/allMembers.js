@@ -7,16 +7,15 @@ const router = express.Router()
 let allMembers = [...bosses, ...managers, ...developers]
 
 router.get("/", (req, res) => {
-  const { fullName, age } = req.query
+  const { name } = req.query
   
-  if (fullName && age) {
-    const member = allMembers.find(member => member.fullName === fullName)
+  if (name) {
+    const member = allMembers.filter(member => member.fullName.toLowerCase().includes(name.toLowerCase()))
 
-    if (!member) {
-      return res.status(404).json({message: "No member found with the provided fullName."})
-    } else if (member.age !== parseInt(age)) {
-      return res.status(404).json({message: "No member found with the provided age."})
+    if (member === 0) {
+      return res.status(404).json({message: "No member or members found with name you provided."})
     }
+
     return res.status(200).json(member)
   }
 

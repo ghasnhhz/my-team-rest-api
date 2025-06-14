@@ -1,19 +1,16 @@
 const express = require("express")
 const bosses = require("../data/dataBosses")
-const infoBosses = require("../data/dataBosses")
+const uuid = require("uuid")
 const router = express.Router()
 
 router.get("/", (req, res) => {
-  const { fullName, age } = req.query
+  const { name } = req.query
   
-  if (fullName && age) {
-    const boss = bosses.find(boss => boss.fullName === fullName)
-    const bossAge = parseInt(age)
+  if (name) {
+    const boss = bosses.filter(boss => boss.fullName.toLowerCase().includes(name.toLowerCase()))
 
-    if (!boss) {
-      return res.status(404).json({error: "No boss with the fullName you provided!"})
-    } else if (boss.age !== bossAge) {
-      return res.status(404).json({error: "Age not matched!"})
+    if (boss === 0) {
+      return res.status(404).json({error: "No boss or bosses with the name you provided!"})
     }
 
     return res.status(200).json(boss)
@@ -38,8 +35,8 @@ router.get("/:bossID", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-  req.body.id = bosses.length + 1
   const newBoss = req.body
+  newBoss.id = uuid.v4()
 
   bosses.push(newBoss)
   res.status(201).json(newBoss)
